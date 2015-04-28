@@ -132,8 +132,9 @@ class StockReservation(models.Model):
         """
         Release moves from reservation
         """
-        move_recs = self.move_id
-        move_recs.action_cancel()
+        for stock_reservation in self:
+            move_recs = stock_reservation.move_id
+            move_recs.action_cancel()
         return True
 
     @api.model
